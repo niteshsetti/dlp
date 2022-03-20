@@ -32,7 +32,7 @@ if($status!='Approved')
             <div class="card login-card">
                 <div class="row no-gutters">
                     <div class="col-md-5">
-                        <img src="../images/un.jpg" alt="login" class="login-card-img">
+                        <img src="../images/a.jpg" alt="login" class="login-card-img">
                     </div>
                     <div class="col-md-7">
                         <div class="card-body">
@@ -67,8 +67,6 @@ if($status!='Approved')
 <?php
 }
 else{
-?>
-
-<?php
+include '../frontend/auth.php';
 }
 ?>

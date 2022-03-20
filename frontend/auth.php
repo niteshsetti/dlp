@@ -1,3 +1,8 @@
+<?php
+include '../backend/details.php';
+include '../backend/data.php';
+include '../backend/auth.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,36 +20,32 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="../middleware/enroll.js"></script>
+<script src="../middleware/login.js"></script>
 <body>
     <main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
         <div class="container">
             <div class="card login-card">
                 <div class="row no-gutters">
                     <div class="col-md-5">
-                        <img src="../images/a.jpg" alt="login" class="login-card-img">
+                        <img src="../images/user.png" alt="login" class="login-card-img">
                     </div>
                     <div class="col-md-7">
                         <div class="card-body">
                             <div class="brand-wrapper">
-                                <img src="../images/dooes.jpg" alt="logo" class="logo">
+                                <img src="../images/sub.png" alt="logo" class="logo">
                             </div>
-                            <p class="login-card-description">Enroll Employee Details</p>
+                            <p class="login-card-description">Login Here</p>
                             <form autocomplete="off" id="form">
                                 <div class="form-group">
-                                    <input type="text" id="ename" class="form-control"
-                                        placeholder="Enter Employee Name">
+                                    <input type="text" id="eid" class="form-control"
+                                    placeholder="<?php echo $get_cid;?>" value="<?php echo $get_cid;?>" disabled style="font-size:21px;">
                                 </div>
                                 <div class="form-group mb-4">
-                                    <input type="email"  id="eemail" class="form-control"
-                                        placeholder="Enter Employee Email">
+                                    <input type="password"  id="epass" class="form-control"
+                                        placeholder="Enter Your Password">
                                 </div>
-                                <div class="form-group mb-4">
-                                    <input type="text"  id="emobile" class="form-control"
-                                        placeholder="Enter Employee Mobile">
-                                </div>
-                                <input name="login" id="submit" class="btn btn-block login-btn mb-4 btn btn-success"
-                                    type="button" value="Submit" style="background-color:#472151;">
+                                <input name="login" id="login" class="btn btn-block login-btn mb-4 btn btn-success"
+                                    type="button" value="Login" style="background-color:#472151;">
                             </form>
                         </div>
                     </div>
