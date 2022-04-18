@@ -9,7 +9,6 @@ const char* password = "Manju@5e6";
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 const byte ROWS = 4;
 const byte COLS = 4;
-int servo_pin = 10;
 Servo myservo;
 int angle = 0;
 char hexaKeys[ROWS][COLS] = {
@@ -36,6 +35,7 @@ String emp = "";
 String passcode = "";
 int n = 0;
 int c = 0;
+int pos;
 Keypad customKeypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS);
 void setup() {
   Wire.begin();
@@ -58,6 +58,7 @@ void setup() {
   delay(2000);
   dis();
   mains();
+  myservo.attach(D10);
 
 }
 void dis()
@@ -172,23 +173,45 @@ void loop() {
         lcd.clear();
         lcd.setCursor(0, 0);
         lcd.print("Door opened");
-        delay(1000);
+        HTTPClient http;
+        http.begin("http://duvp.000webhostapp.com/Doorlockproject/log.php");
+        http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+        String cool = empid;
+        String data = "&name=" + cool;
+        int httpCode = http.POST(data);
+        if (httpCode > 0) {
+          String response = http.getString();
+          Serial.println(httpCode);
+          Serial.println(response);
+        }
+        else {
+          Serial.print("Error on sending post");
+          Serial.println(httpCode);
+        }
+        for (pos = 270; pos >= 0; pos -= 2) { // goes from 0 degrees to 180 degrees
+          myservo.write(pos);              // tell servo to go to position in variable 'pos'
+          delay(12);                       // waits 15ms for the servo to reach the position
+        }
+        for (pos = 0; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
+          myservo.write(pos);              // tell servo to go to position in variable 'pos'
+          delay(12);                       // waits 15ms for the servo to reach the position
+        }
         setup();
         count = 0;
         empid = "";
         cc = "";
-        c=0;
+        c = 0;
       }
       else {
         c = 0;
         lcd.clear();
         lcd.setCursor(0, 0);
         lcd.print("Invalid Passcode");
-        delay(3000);
+        delay(1000);
         lcd.clear();
         lcd.setCursor(0, 0);
         lcd.print("Try Again !!!");
-        delay(3000);
+        delay(1000);
         lcd.clear();
         lcd.setCursor(0, 0);
         lcd.print("Enter Passcode");
